@@ -8,7 +8,8 @@ export const databaseConfig = (configService: ConfigService): TypeOrmModuleOptio
   username: configService.get<string>('DATABASE_USER'),
   password: configService.get<string>('DATABASE_PASSWORD'),
   database: configService.get<string>('DATABASE_NAME'),
-  entities: [__dirname + '/**/*.entity.{js,ts}'],
+  entities: [__dirname + '/**/*.entity.{ts,js}'],
   migrations: [__dirname + '/../database/migrations/*.{ts,js}'],
   migrationsRun: true,
+  synchronize: true,
 });
