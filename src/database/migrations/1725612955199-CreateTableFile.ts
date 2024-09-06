@@ -19,9 +19,15 @@ export class CreateTableFile1725356961901 implements MigrationInterface {
                         length: '255',
                     },
                     {
+                        name: 'filename',
+                        type: 'varchar',
+                        length: '255',
+                    },
+                    {
                         name: 'description',
                         type: 'varchar',
                         length: '255',
+                        isNullable: true,
                     },
                     {
                         name: 'path',
@@ -31,10 +37,12 @@ export class CreateTableFile1725356961901 implements MigrationInterface {
                     {
                         name: 'start_date',
                         type: 'timestamp',
+                        isNullable: true,
                     },
                     {
                         name: 'expiry_date',
                         type: 'timestamp',
+                        isNullable: true,
                     },
                     {
                         name: 'created_at',

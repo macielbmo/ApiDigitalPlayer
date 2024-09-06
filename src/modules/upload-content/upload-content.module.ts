@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { File } from './models/entities/file.entity';
 import { UploadContentService } from './upload-content.service';
-import { UploadContentController } from './upload-content.contoller';
+import { FileUp } from './models/entities/file.entity';
+import { UploadContentController } from './upload-content.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([File])],
+  imports: [TypeOrmModule.forFeature([FileUp])],
   controllers: [UploadContentController],
   providers: [UploadContentService],
 })

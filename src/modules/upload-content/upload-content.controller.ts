@@ -11,7 +11,7 @@ export class UploadContentController {
   @Post('file')
   @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
-      destination: '../../../temp/upload',
+      destination: './temp/upload',
       filename: (req, file, cb) => {
         const randomName = Array(32)
           .fill(null)
@@ -30,6 +30,7 @@ export class UploadContentController {
     },
   }))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
+    console.log("[FILE] ",file)
     const savedFile = await this.uploadService.saveFile(file);
     return {
       message: 'File uploaded successfully!',
