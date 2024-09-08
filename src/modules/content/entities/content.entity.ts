@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity('file')
-export class FileUp {
+@Entity('content')
+export class Content {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -14,8 +14,17 @@ export class FileUp {
   @Column({ type: 'varchar', nullable: true })
   description: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   path: string;
+
+  @Column({ type: 'varchar', nullable: true})
+  type: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  size: number;
+
+  @Column({ type: 'float4', nullable: true })
+  durantion: number;
 
   @Column({ type: 'timestamp', nullable: true })
   start_date: Date;
