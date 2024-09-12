@@ -27,21 +27,24 @@ export class ContentService {
     return this.contentService.find();
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} content`;
   }
 
-  update(id: number, updateContentDto: UpdateContentDto) {
+  update(id: string, updateContentDto: UpdateContentDto) {
     return `This action updates a #${id} content`;
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
+    console.log(id)
     try {
       const content = await this.contentService.findOne({ where: { id: id } });
 
       if (!content) {
         throw new Error('Content not found');
       }
+
+      console.log(id)
 
       return this.contentService.remove(content);
     } catch {

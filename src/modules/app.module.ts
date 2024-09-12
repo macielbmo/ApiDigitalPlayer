@@ -6,9 +6,15 @@ import { ContentModule } from './content/content.module';
 import { ContentWebsiteModule } from './content-website/content-website.module';
 import { ScreensModule } from './screens/screens.module';
 import { PlaylistModule } from './playlist/playlist.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'temp', 'upload'),
+      serveRoot: '/temp',
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env']
