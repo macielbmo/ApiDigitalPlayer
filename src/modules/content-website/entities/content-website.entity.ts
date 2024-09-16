@@ -3,10 +3,13 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 @Entity('content_website')
 export class ContentWebsite {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: string;
 
-    @Column()
+    @Column({ type: 'varchar', nullable: true })
     url: string;
+
+    @Column({ type: 'text', nullable: true })
+    html: string;
 
     @Column()
     title: string;

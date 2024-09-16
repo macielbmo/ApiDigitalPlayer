@@ -20,15 +20,15 @@ export class ContentWebsiteService {
     return this.contentWebsiteRepository.find();
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.contentWebsiteRepository.findOne({ where: { id: id } });
   }
 
-  update(id: number, updateContentWebsiteDto: UpdateContentWebsiteDto) {
+  update(id: string, updateContentWebsiteDto: UpdateContentWebsiteDto) {
     return `This action updates a #${id} contentWebsite`;
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const contentWebsite = await this.findOne(id);
 
     if (!contentWebsite) {

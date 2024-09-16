@@ -9,7 +9,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class PlaylistService {
   constructor(
     @InjectRepository(Playlist)
-    private readonly playlistService: Repository<Playlist>,
+    private readonly playlistService: Repository<Playlist>
   ) {}
   create(createPlaylistDto: CreatePlaylistDto) {
     return this.playlistService.save(createPlaylistDto);
@@ -20,16 +20,34 @@ export class PlaylistService {
   }
 
   findOneScreen(screen_id: string) {
-    return this.playlistService.find({ where: { screen_id } })
+    return this.playlistService.find({ 
+      where: { screen_id },
+      relations: ['content', 'content_website'] 
+    })
   }
 
   findOneScreenContent(screen_id: string, content_id: string) {
     return this.playlistService.find({ where: { screen_id, content_id } });
   }
 
-  update(id: string, updatePlaylistDto: UpdatePlaylistDto) {
-    return `This action updates a #${id} playlist`;
+  async update(id: string, updatePlaylistDto: UpdatePlaylistDto) {
+    const content = await this.playlistService.find({ 
+      where: { 
+        screen_id: id, 
+        content_id: updatePlaylistDto.content_id
+      }
+    });
+  
+    if (!content || content.length === 0) {
+      throw new Error('Playlist not found');
+    }
+  
+    Object.assign(content[0], updatePlaylistDto);
+    const savedContent = await this.playlistService.save(content[0]);
+  
+    return savedContent;
   }
+  
 
   async remove(screen_id: string, content_id: string) {
     const content = await this.findOneScreenContent(screen_id, content_id);

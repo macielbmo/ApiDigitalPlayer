@@ -17,6 +17,12 @@ export class CreateTableContentWebsites1725736889615 implements MigrationInterfa
                         name: 'url',
                         type: 'varchar',
                         length: '255',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'html',
+                        type: 'text',
+                        isNullable: true,
                     },
                     {
                         name: 'title',

@@ -19,16 +19,17 @@ export class ContentWebsiteController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.contentWebsiteService.findOne(+id);
+    return this.contentWebsiteService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateContentWebsiteDto: UpdateContentWebsiteDto) {
-    return this.contentWebsiteService.update(+id, updateContentWebsiteDto);
+    return this.contentWebsiteService.update(id, updateContentWebsiteDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.contentWebsiteService.remove(+id);
+    console.log("Delete", id);
+    return this.contentWebsiteService.remove(id);
   }
 }
