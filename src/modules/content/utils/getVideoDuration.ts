@@ -1,6 +1,7 @@
 import * as ffmpeg from 'fluent-ffmpeg';
+import { env } from 'process';
 
-ffmpeg.setFfprobePath('/usr/bin/ffprobe');
+ffmpeg.setFfprobePath(process.env.PATH_FFPROBE);
 
 export default function getVideoDuration(filePath: string): Promise<number> {
     return new Promise((resolve, reject) => {

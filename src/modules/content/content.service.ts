@@ -27,8 +27,8 @@ export class ContentService {
     return this.contentService.find();
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} content`;
+  async findOne(id: string) {
+    return await this.contentService.findOne({where: {id}});
   }
 
   update(id: string, updateContentDto: UpdateContentDto) {
