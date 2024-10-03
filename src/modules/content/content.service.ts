@@ -31,8 +31,16 @@ export class ContentService {
     return await this.contentService.findOne({where: {id}});
   }
 
-  update(id: string, updateContentDto: UpdateContentDto) {
-    return `This action updates a #${id} content`;
+  async update(id: string, updateContentDto: UpdateContentDto) {
+    const content = await this.contentService.findOne({ where: { id } });
+
+    if (!content) {
+      throw new Error('Content not found');
+    }
+
+    Object.assign(content, updateContentDto);
+
+    return this.contentService.save(content);
   }
 
   async remove(id: string) {
