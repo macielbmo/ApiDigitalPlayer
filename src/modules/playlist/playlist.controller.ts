@@ -9,6 +9,7 @@ export class PlaylistController {
 
   @Post()
   create(@Body() createPlaylistDto: CreatePlaylistDto) {
+    console.log(createPlaylistDto);
     return this.playlistService.create(createPlaylistDto);
   }
 
@@ -24,7 +25,14 @@ export class PlaylistController {
 
   @Patch(':screen_id')
   update(@Param('screen_id') screen_id: string, @Body() updatePlaylistDto: UpdatePlaylistDto) {
+    console.log(updatePlaylistDto);
     return this.playlistService.update(screen_id, updatePlaylistDto);
+  }
+
+  @Patch('order/:screen_id')
+  updateOrder(@Param('screen_id') screen_id: string, @Body() updatePlaylistDto: UpdatePlaylistDto[]) {
+    console.log(updatePlaylistDto);
+    return this.playlistService.updateOrder(screen_id, updatePlaylistDto);
   }
 
   @Delete(':screen_id/:content_id')

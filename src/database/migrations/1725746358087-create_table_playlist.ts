@@ -24,6 +24,11 @@ export class CreateTablePlaylist1725746358087 implements MigrationInterface {
                     name: 'duration',
                     type: 'integer',
                     isNullable: true,
+                },
+                {
+                    name: 'order',
+                    type: 'integer',
+                    isNullable: false,
                 }
             ]
            }), true)

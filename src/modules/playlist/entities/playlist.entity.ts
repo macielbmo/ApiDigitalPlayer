@@ -15,6 +15,9 @@ export class Playlist {
 
     @Column()
     duration: number;
+    
+    @Column()
+    order: number;
 
     @OneToOne(() => Content)
     @JoinColumn({ name: 'content_id' })

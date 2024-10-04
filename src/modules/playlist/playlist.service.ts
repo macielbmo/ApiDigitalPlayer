@@ -47,7 +47,37 @@ export class PlaylistService {
   
     return savedContent;
   }
+
+  async updateOrder(screenId: string, updatePlaylistDto: UpdatePlaylistDto[]) {
+    if (!updatePlaylistDto || updatePlaylistDto.length === 0) {
+      throw new Error('No contents to update');
+    }
   
+    const results = [];
+  
+    for (const item of updatePlaylistDto) {
+      const content = await this.playlistService.find({ 
+        where: { 
+          screen_id: screenId, 
+          content_id: item.content_id
+        }
+      });
+
+      console.log(content);
+  
+      if (!content || content.length === 0) {
+        throw new Error(`Content with ID ${item.content_id} not found`);
+      }
+
+      content[0].order = item.order;
+      const savedContent = await this.playlistService.save(content[0]);
+  
+      results.push(savedContent);
+    }
+  
+    return results;
+  }
+
 
   async remove(screen_id: string, content_id: string) {
     const content = await this.findOneScreenContent(screen_id, content_id);

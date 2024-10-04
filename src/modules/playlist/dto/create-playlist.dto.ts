@@ -3,4 +3,5 @@ export class CreatePlaylistDto {
     screen_id: string;
     type_content: string;
     duration?: number;
+    order: number;
 }
