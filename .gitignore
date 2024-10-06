@@ -2,7 +2,9 @@
 /dist
 /node_modules
 /build
+/dist
 /temp
+/upload_content
 
 # Logs
 logs

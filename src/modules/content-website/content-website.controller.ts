@@ -2,10 +2,14 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ContentWebsiteService } from './content-website.service';
 import { CreateContentWebsiteDto } from './dto/create-content-website.dto';
 import { UpdateContentWebsiteDto } from './dto/update-content-website.dto';
+import { PlaylistService } from '../playlist/playlist.service';
 
 @Controller('content-website')
 export class ContentWebsiteController {
-  constructor(private readonly contentWebsiteService: ContentWebsiteService) {}
+  constructor(
+    private readonly contentWebsiteService: ContentWebsiteService,
+    private readonly playlistService: PlaylistService,
+  ) {}
 
   @Post()
   create(@Body() createContentWebsiteDto: CreateContentWebsiteDto) {
@@ -28,8 +32,8 @@ export class ContentWebsiteController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    console.log("Delete", id);
+  async remove(@Param('id') id: string) {
+    await this.playlistService.removeContent(id);
     return this.contentWebsiteService.remove(id);
   }
 }

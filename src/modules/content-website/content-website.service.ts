@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 export class ContentWebsiteService {
   constructor(
     @InjectRepository(ContentWebsite)
-    private readonly contentWebsiteRepository: Repository<ContentWebsite>,
+    private readonly contentWebsiteRepository: Repository<ContentWebsite>
   ) {}
   
   create(createContentWebsiteDto: CreateContentWebsiteDto) {

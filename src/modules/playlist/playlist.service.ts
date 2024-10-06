@@ -26,6 +26,34 @@ export class PlaylistService {
     })
   }
 
+  async findContentPlayer(screen_id: string) {
+    const data = await this.playlistService.find({ 
+      where: { screen_id },
+      relations: ['content', 'content_website'] 
+    })
+    
+    const playlist = [];
+
+    data.forEach(item => {
+      const date = new Date();
+      date.setHours(date.getHours() - 3);
+
+      const dateNull = new Date('1970-01-01T00:00:00.000Z');
+      const dateStart = new Date(item.content.start_date);
+      const dateEnd = new Date(item.content.expiry_date);
+
+      if (dateStart.getTime() === dateNull.getTime() || dateEnd.getTime() === dateNull.getTime()) {
+        playlist.push(item);
+      }
+
+      if (dateStart.getTime() <= date.getTime() && date.getTime() <= dateEnd.getTime()) {
+        playlist.push(item);
+      }
+    })
+
+    return playlist
+  }
+
   findOneScreenContent(screen_id: string, content_id: string) {
     return this.playlistService.find({ where: { screen_id, content_id } });
   }
@@ -87,5 +115,21 @@ export class PlaylistService {
     }
 
     return this.playlistService.remove(content)
+  }
+
+  findOneContentAllPlaylist(content_id: string) {
+    return this.playlistService.find({ 
+      where: { content_id },
+    })
+  }
+
+  async removeContent(content_id: string) {
+    const data = await this.findOneContentAllPlaylist(content_id)
+
+    if (!data || data.length === 0) {
+      throw new Error('Content not found in any playlist');
+    }
+    
+    return this.playlistService.remove(data)
   }
 }

@@ -12,5 +12,6 @@ import { ContentWebsite } from '../content-website/entities/content-website.enti
   imports: [TypeOrmModule.forFeature([Playlist, Content, ContentWebsite])],
   controllers: [PlaylistController, ContentController],
   providers: [PlaylistService, ContentService],
+  exports: [PlaylistService],
 })
 export class PlaylistModule {}

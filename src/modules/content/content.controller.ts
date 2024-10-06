@@ -1,15 +1,18 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { ContentService } from './content.service';
-import { CreateContentDto } from './dto/create-content.dto';
 import { UpdateContentDto } from './dto/update-content.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import getVideoDuration from './utils/getVideoDuration';
+import { PlaylistService } from '../playlist/playlist.service';
 
 @Controller('content')
 export class ContentController {
-  constructor(private readonly contentService: ContentService) {}
+  constructor(
+    private readonly contentService: ContentService,
+    private readonly playlistService: PlaylistService,
+  ) {}
 
   @Post('file')
   @UseInterceptors(FileInterceptor('file', {
@@ -34,12 +37,11 @@ export class ContentController {
   }))
   async create(@UploadedFile() file: Express.Multer.File) {
     // Obter a duração do vídeo (somente se for vídeo)
+
     let videoDuration = null;
     if (file.mimetype === 'video/mp4') {
       videoDuration = await getVideoDuration(file.path);
     }
-
-    console.log('creating file', file);
 
     // Adicionar a duração ao objeto file
     const savedFile = await this.contentService.create(file, videoDuration);
@@ -68,7 +70,8 @@ export class ContentController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
+    await this.playlistService.removeContent(id);
     return this.contentService.remove(id);
   }
 }

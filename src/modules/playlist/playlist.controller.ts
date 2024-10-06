@@ -23,6 +23,11 @@ export class PlaylistController {
     return this.playlistService.findOneScreen(screen_id);
   }
 
+  @Get('player/:screen_id')
+  findContentPlayer(@Param('screen_id') screen_id: string) {
+    return this.playlistService.findContentPlayer(screen_id);
+  }
+
   @Patch(':screen_id')
   update(@Param('screen_id') screen_id: string, @Body() updatePlaylistDto: UpdatePlaylistDto) {
     console.log(updatePlaylistDto);
@@ -41,5 +46,12 @@ export class PlaylistController {
     @Param('content_id') content_id: string,
   ) {
     return this.playlistService.remove(screen_id, content_id);
+  }
+
+  @Delete(':content_id')
+  removeContent(
+    @Param('content_id') content_id: string,
+  ) {
+    return this.playlistService.removeContent(content_id);
   }
 }
