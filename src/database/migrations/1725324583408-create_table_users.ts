@@ -16,11 +16,6 @@ export class CreateTableUser1725322213860 implements MigrationInterface {
                         default: 'uuid_generate_v4()',
                     },
                     {
-                        name: 'username',
-                        type: 'varchar',
-                        isUnique: true,
-                    },
-                    {
                         name: 'email',
                         type: 'varchar',
                         isUnique: true,
@@ -31,9 +26,9 @@ export class CreateTableUser1725322213860 implements MigrationInterface {
                         length: '255'
                     },
                     {
-                        name: 'firebase_id',
-                        type: 'varchar',
-                        length: '255',
+                        name: 'isActive',
+                        type: 'boolean',
+                        default: true,
                     },
                     {
                         name: 'created_at',

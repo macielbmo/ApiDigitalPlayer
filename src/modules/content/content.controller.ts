@@ -71,7 +71,12 @@ export class ContentController {
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    await this.playlistService.removeContent(id);
+    try {
+      await this.playlistService.removeContent(id);
+    } catch (error) {
+      console.log(error.message);
+    }
+
     return this.contentService.remove(id);
   }
 }

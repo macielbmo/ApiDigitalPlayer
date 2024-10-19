@@ -8,6 +8,8 @@ import { ScreensModule } from './screens/screens.module';
 import { PlaylistModule } from './playlist/playlist.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { join } from 'path';
     ContentWebsiteModule,
     ScreensModule,
     PlaylistModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],

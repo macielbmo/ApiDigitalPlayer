@@ -127,7 +127,8 @@ export class PlaylistService {
     const data = await this.findOneContentAllPlaylist(content_id)
 
     if (!data || data.length === 0) {
-      throw new Error('Content not found in any playlist');
+      console.log('Content not found in any playlist. Proceeding with deletion.');
+      return null;
     }
     
     return this.playlistService.remove(data)
