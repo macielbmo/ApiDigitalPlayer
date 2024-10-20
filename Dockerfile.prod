@@ -2,8 +2,10 @@ FROM node:20-alpine
 
 USER root
 
-RUN apk add --no-cache ffmpeg
-RUN apk add --no-cache nano
+RUN apk add --no-cache ffmpeg \
+    && apk add --no-cache nano \
+    && apk add --no-cache python3 \
+    && apk add --no-cache make g++  # Dependências para compilar o bcrypt
 
 USER node
 
@@ -16,6 +18,8 @@ COPY --chown=node:node . .
 RUN npm install
 
 RUN npm run build
+
+RUN npm rebuild bcrypt --build-from-source
 
 ENV NODE_ENV=prod
 

@@ -4,7 +4,6 @@ import * as dotenv from 'dotenv';
 
 const envFilePath = `.env.${process.env.NODE_ENV || 'dev'}`;
 dotenv.config({ path: envFilePath });
-// dotenv.config({ path: '.env.dev' });
 
 dotenv.config();
 

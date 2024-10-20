@@ -1,17 +1,26 @@
-FROM node:20
+FROM node:20-alpine
 
-WORKDIR /app
+USER root
 
-RUN apt-get update && apt-get install -y ffmpeg
+RUN apk add --no-cache ffmpeg \
+    && apk add --no-cache nano \
+    && apk add --no-cache python3 \
+    && apk add --no-cache make g++  # Dependências para compilar o bcrypt
 
-COPY package*.json ./
+USER node
+
+RUN mkdir -p /home/node/app
+
+WORKDIR /home/node/app
+
+COPY --chown=node:node . .
 
 RUN npm install
 
-COPY . .
+RUN npm run build
 
-RUN npm install
+RUN npm rebuild bcrypt --build-from-source
 
-EXPOSE 3000
+ENV NODE_ENV=dev
 
-CMD ["npm", "run", "start:dev"]
+CMD [ "npm", "run", "start:dev" ]

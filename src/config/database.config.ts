@@ -15,7 +15,10 @@ export const databaseConfig = (configService: ConfigService): TypeOrmModuleOptio
   synchronize: false,
 });
 
-ConfigModule.forRoot();
+ConfigModule.forRoot({
+  isGlobal: true,
+  envFilePath: `.env.${process.env.NODE_ENV || 'dev'}`
+});
 
 const options: DataSourceOptions = {
   type: 'postgres',
